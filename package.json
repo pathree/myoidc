@@ -1,19 +1,27 @@
 {
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "name": "oidc",
   "version": "1.0.0",
   "description": "OIDC Client",
-  "main": "server.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pathree/oidc.git"
+    "url": "https://github.com/pathree/oidc.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Path Ree",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pathree/oidc/issues"
   },
-  "homepage": "https://github.com/pathree/oidc#readme"
+  "homepage": "https://github.com/pathree/oidc#readme",
+  "keywords": [],
+  "dependencies": {
+    "axios": "^0.24.0",
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0"
+  }
 }

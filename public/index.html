@@ -1,0 +1,28 @@
+<head>
+<meta charset="utf-8">
+<title>Google OIDC Test</title>
+</head>
+<body>
+    <a id="login">Login with Google Identity</a>
+    <div id="url"></div>
+<script>
+	var authorization_endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+	var client_id = '584220930515-742jon2tvv8d8ouj040dpob2b6b0g8kg.apps.googleusercontent.com';
+	var redirect_uri = 'http%3A%2F%2Fwww.example.com%2Foidc%2Ftoken';
+	var state = 'security_token%3D123456%26redirect_uri%3Dhttp%3A%2F%2Fwww.example.com';
+	var nonce = '0394852-3190485-2490358';
+
+	var url = authorization_endpoint + "?" 
+    + "response_type=code"
+	+ "&client_id=" + client_id 
+    + "&scope=openid%20profile%20email"
+	+ "&redirect_uri=" + redirect_uri 
+	+ "&state=" + state 
+    + "&nonce=" + nonce;
+
+    document.getElementById('login').href = `${url}`;
+    document.getElementById('url').innerHTML = `${url}`;
+</script>
+
+</body>
+</html>

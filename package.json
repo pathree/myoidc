@@ -1,7 +1,4 @@
 {
-  "dependencies": {
-    "express": "^4.17.1"
-  },
   "scripts": {
     "start": "node server.js"
   },
@@ -9,7 +6,6 @@
   "version": "1.0.0",
   "description": "OIDC Client",
   "main": "server.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pathree/oidc.git"

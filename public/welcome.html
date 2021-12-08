@@ -5,12 +5,35 @@
 </head>
 
 <body>
+    <ul id="list"></ul>
 <script>
-    const query = window.location.search.substring(1) || '';
-    const name = query.split('name=')[1];
-    document.body.appendChild(
-        document.createTextNode(`Welcome, ${decodeURIComponent(name)}`)
-    );
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results == null ? "": decodeURIComponent(results[1]);
+    }
+
+    function appendParam(name){
+        var param = getParameterByName(name);    
+        var node = document.createElement("LI");
+        var textnode = document.createTextNode(name + ": " + param);
+        node.appendChild(textnode);
+        document.getElementById("list").appendChild(node)
+    }
+
+
+    document.write('Code:<br>');
+    document.write(getParameterByName("code"));
+    document.write('<br>');
+
+    document.write('Access Token:<br>');
+    document.write(getParameterByName("token"));
+    document.write('<br>');
+
+    document.write('User Info:');
+    document.write('<pre>' + getParameterByName("user") + '</pre>');
+   
 </script>
 
 </body>

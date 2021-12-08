@@ -1,3 +1,5 @@
+const well_known = "https://accounts.google.com/.well-known/openid-configuration";
+//const well_known = "https://api.weixin.qq.com/sns/oauth2/access_token"
 const authorization_endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 const token_endpoint = 'https://oauth2.googleapis.com/token';
 const userinfo_endpoint = 'https://openidconnect.googleapis.com/v1/userinfo';
@@ -17,7 +19,22 @@ const router = new Router();
 
 const main = serve(path.join(__dirname + '/public'));
 
+async function endpoints() {
+    console.log('>>> Well known endpoints:\n', `${well_known}`);
+    const res = await axios({
+        method: 'get',
+        url: `${well_known}`,
+        headers: {
+            accept: 'application/json'
+        }
+    });
+    console.log("<<< Well known endpoints:", res.data);
+};
+
 const oauth = async ctx => {
+
+    //endpoints();
+
     console.log('>>> Exchange code for access token and ID token:\n', ctx.request);
     const code = ctx.request.query.code;
     console.log('authorization code:', code);
@@ -36,8 +53,8 @@ const oauth = async ctx => {
     });
 
     console.log("<<< Exchange code for access token and ID token, response:\n", tokenResponse.data);
-    const accessToken = tokenResponse.data.access_token;
-    console.log(`access token: ${accessToken}`);
+    const token = tokenResponse.data.access_token;
+    console.log(`access token: ${token}`);
 
     console.log('>>> Obtaining user profile information:\n');
 
@@ -46,14 +63,16 @@ const oauth = async ctx => {
         url: `${userinfo_endpoint}`,
         headers: {
             accept: 'application/json',
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${token}`
         }
     });
   
     console.log("<<< Obtaining user profile information:\n", userinfo.data);
-    const name = userinfo.data.name;
 
-  ctx.response.redirect(`/welcome.html?name=${name}`);
+    code2 = encodeURIComponent(code);
+    token2 = encodeURIComponent(token);
+    user2 = encodeURIComponent(JSON.stringify(userinfo.data, null, 4));
+    ctx.response.redirect(`/welcome.html?code=${code2}&token=${token2}&user=${user2}`);
 };
 
 router.get('/oidc/token', oauth);

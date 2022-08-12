@@ -5,4 +5,3 @@
 Authentication Server采用Google
 https://developers.google.com/identity/protocols/oauth2/openid-connect
 
-1
